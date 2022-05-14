@@ -39,7 +39,7 @@ def login():
     # get request params
     query_params = {'client_id': config["client_id"],
                     'redirect_uri': config["redirect_uri"],
-                    'scope': "openid email profile",
+                    'scope': "openid profile email phone",
                     'state': APP_STATE,
                     'nonce': NONCE,
                     'response_type': 'code',
@@ -64,12 +64,14 @@ def profile():
 def callback():
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     code = request.args.get("code")
+    print(code)
     if not code:
         return "The code was not returned or is not accessible", 403
     query_params = {'grant_type': 'authorization_code',
                     'code': code,
                     'redirect_uri': request.base_url
                     }
+    print(query_params)
     query_params = requests.compat.urlencode(query_params)
     exchange = requests.post(
         config["token_uri"],
@@ -77,7 +79,7 @@ def callback():
         data=query_params,
         auth=(config["client_id"], config["client_secret"]),
     ).json()
-
+    print(exchange)
     # Get tokens and validate
     if not exchange.get("token_type"):
         return "Unsupported token type. Should be 'Bearer'.", 403
@@ -93,7 +95,10 @@ def callback():
     # Authorization flow successful, get userinfo and login user
     userinfo_response = requests.get(config["userinfo_uri"],
                                      headers={'Authorization': f'Bearer {access_token}'}).json()
-
+    print(userinfo_response)
+    linkedobjects_response = requests.get(config["linkedobjects_uri"],
+                                 headers={'Authorization': f'Bearer {access_token}'})
+    print(linkedobjects_response,linkedobjects_response.text)
     unique_id = userinfo_response["sub"]
     user_email = userinfo_response["email"]
     user_name = userinfo_response["given_name"]

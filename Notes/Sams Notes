@@ -12,10 +12,18 @@ cp client_secrets.json.dist client_secrets.json
 EDIT THIS FILE: client_secrets.json  
 # This is where you need to generate the SPA 
 https://{{Your Domain here}}-admin.okta.com/admin/apps/active
-Click Createa app intergration and select OIDC - OpenID Connect followed by Single-Page Application
+Click Create a app intergration and select OIDC - OpenID Connect followed by Web Application
 Select your access limits (Manager?)
+I checked all grant types...
 Fill in anything else you want for branding
 Hit save
+Click on the Okta Api Scopes and check boxes for
+okta.linkedObjects.read
+okta.users.read.self
+okta.users.read
+
+
+
 (Danger Not sure if correct) Hit edit on General settings and disable retuiqer consent
 # You will need to put the info displayed on this page in the file called client_secrets, below is an example of a barely corrupted exampe file of the one you copied with the pervious cp command.
 {
@@ -32,6 +40,40 @@ python3 main.py
 #You may need to modify the above command if your python3 installed as python
 #######################################################################
 if you open the web address it spits out then you should see an application running 
+
+test to make sure you can get to the profile page.
+#######################################################################
+open main.py and add a print statement on line 96
+print(userinfo_response)
+after the userinfo_response
+Example out put of print
+{
+'sub': '00u511sv90BZ7L5ti5d7',
+'name': 'Sam Rudloff',
+'profile': '',
+'locale': '',
+'email': 'sam.rudloff@gmail.com', 
+'nickname': 'Sam',
+'preferred_username': 'sam.rudloff@gmail.com',
+'given_name': 'Sam', 
+'middle_name': 'John',
+'family_name': 'Rudloff', 
+'zoneinfo': '',
+'updated_at': 1652535392,
+'email_verified': True
+}
+
+#######################################################################
+open the template/profile.html file
+open https://developer.okta.com/docs/api/resources/oidc.html#get-user-information
+
+
+#######################################################################
+
+https://developer.okta.com/docs/reference/api/linked-objects/#get-all-linked-object-definitions
+
+
+
 
 
 == Sam Rudloff
