@@ -16,7 +16,7 @@ Click Createa app intergration and select OIDC - OpenID Connect followed by Sing
 Select your access limits (Manager?)
 Fill in anything else you want for branding
 Hit save
-(Danger)((Hit edit on General settings and disable retuiqer consent,(Im not sure about this step)))
+(Danger Not sure if correct) Hit edit on General settings and disable retuiqer consent
 # You will need to put the info displayed on this page in the file called client_secrets, below is an example of a barely corrupted exampe file of the one you copied with the pervious cp command.
 {
 	"auth_uri": "https://dev-12345678-admin.okta.com/oauth2/default/v1/authorize",
