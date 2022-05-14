@@ -1,0 +1,37 @@
+So below is a bunch of commands that will help with getting the sample working, its mostly just stolen from my command line history file but i did add some comments which i prefixed with a pound sign.
+
+#######################################################################
+git clone git@github.com:sam2332/samples-python-flask.git
+pip install -r requirements.txt
+pip install Werkzeug==2.0.0
+pip install itsdangerous==2.0.1
+pip install jinja2==3.0.1
+cd okta-hosted-login/
+cp client_secrets.json.dist client_secrets.json
+
+EDIT THIS FILE: client_secrets.json  
+# This is where you need to generate the SPA 
+https://{{Your Domain here}}-admin.okta.com/admin/apps/active
+Click Createa app intergration and select OIDC - OpenID Connect followed by Single-Page Application
+Select your access limits (Manager?)
+Fill in anything else you want for branding
+Hit save
+(Danger)((Hit edit on General settings and disable retuiqer consent,(Im not sure about this step)))
+# You will need to put the info displayed on this page in the file called client_secrets, below is an example of a barely corrupted exampe file of the one you copied with the pervious cp command.
+{
+	"auth_uri": "https://dev-12345678-admin.okta.com/oauth2/default/v1/authorize",
+	"client_id": "0oa513vg22pqPXEhi5d7",
+	"client_secret": "i4Zyz21mUr5z8BobpgnZv-PgIEnaZgZiyp-A84qF",
+	"redirect_uri": "http://localhost:8080/authorization-code/callback",
+	"issuer": "https://dev-12345678-admin.okta.com/oauth2/default",
+	"token_uri": "https://dev-12345678-admin.okta.com/oauth2/default/v1/token",
+	"userinfo_uri": "https://dev-12345678-admin.okta.com/oauth2/default/v1/userinfo"
+}
+
+python3 main.py
+#You may need to modify the above command if your python3 installed as python
+#######################################################################
+if you open the web address it spits out then you should see an application running 
+
+
+== Sam Rudloff
